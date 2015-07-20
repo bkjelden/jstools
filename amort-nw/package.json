@@ -1,0 +1,16 @@
+{
+  "name": "amort-nw",
+  "version": "0.0.1",
+  "description": "amortization calculator using nw.js",
+  "main": "index.html",
+  "window": {
+  	"toolbar": true,
+    "width": 1200
+  },
+  "scripts": {
+  	"start": "nw",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

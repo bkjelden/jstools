@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="amortizationCalc">
+	<head>
+		<title>Amortization Calculator</title>
+		<meta http-equiv="content-type" content="text/html"; charset="UTF8">
+		<link rel="stylesheet" type="text/css" href="libs/bootstrap/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="libs/nvd3/nv.d3.css">
+		<style>
+			html
+			{
+				overflow-y: scroll;	
+			}
+			td
+			{
+				padding: 0px 10px;
+				text-align: right;
+			}
+			th
+			{
+				text-align: right;
+			}
+
+			.row-chart
+			{
+				height: 30px;
+				width: 200px;
+			}
+
+			.header-legend
+			{
+				width: 12px;
+				height: 12px;
+				border: 1px solid #999;
+				display: inline-block;
+				margin: 0px 3px;
+			}
+			#payment-graph, #loan-breakdown
+			{
+				height: 300px;
+			/*}
+			#loan-breakdown
+			{*/
+				width: 100%;
+				display: block;
+			}
+		</style>
+		<script src="libs/jquery/jquery.js"></script>
+		<script src="libs/angular/angular.js"></script>
+		<script src="libs/d3/d3.js"></script>
+		<script src="libs/nvd3/nv.d3.js"></script>
+		<script src="libs/angularjs-nvd3-directives/angularjs-nvd3-directives.js"></script>
+		<script src="main.js"></script>
+	</head>
+	<body ng-controller="CalculatorController">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<label for="principal">Principal</label>
+					<input type="text" id="principal" ng-model="principal" ng-blur="updateVals()" value="2500">
+				</div>
+				<div class="col-md-4">
+					<label for="rate">Rate</label>
+					<input type="text" id="rate" ng-model="rate" ng-blur="updateVals()" value="3">
+				</div>
+				<div class="col-md-4">
+					<label for="years">Years</label>
+					<input type="text" id="years" ng-model="years" ng-blur="updateVals()" value="2">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<h1>Payments: {{payments.length}}</h1>
+				</div>
+				<div class="col-md-4">
+					<h1>Payment: {{payment | currency}}</h1>
+				</div>
+				<div class="col-md-4">
+					<h1>Total Paid: {{payments.length * payment | currency}}</h1>
+				</div>
+			</div>
+			<div class="row">
+				<!--<div class="col-md-8" id="payment-graph">
+					<svg></svg>
+				</div>-->
+				<div class="col-md-8">
+					<nvd3-line-plus-bar-chart
+						data="linePlusBarChartData"
+						id="payment-graph"
+						x="xoxoxo()"
+					    y="yoyoyo()"
+					    focusEnable="false"
+					    showLegend="false"
+						margin="{left:0,top:0,bottom:0,right:0}">
+						<svg></svg>
+					</nvd3-line-plus-bar-chart>
+				</div>
+				<!--<div class="col-md-4" id="loan-breakdown">
+        			<svg></svg>
+				</div>-->
+				<div class="col-md-4">
+				    <nvd3-pie-chart
+				    	data="pieChartData"
+				        id="loan-breakdown"
+				        margin="{left:0,top:0,bottom:0,right:0}"
+				        x="xoxo()"
+				        y="yoyo()"
+				        color="colorsFn()"
+				        showLabels="false">
+    					<svg></svg>
+					</nvd3-pie-chart>
+				</div>
+			</div>
+		<table class="table table-striped table-condensed table-hover">
+			<tr>
+				<th>Date</th><th>Interest</th><th>Principal</th><th>Loan Balance</th><th>Total Principal Paid</th><th>Total Interest Paid</th><th>Total Paid</th>
+				<th style="width: 200px">
+					<div class="header-legend" style="background-color: #5cb85c"></div>Principal<div class="header-legend" style="background-color: #d9534f"></div>Interest
+				</th>
+			</tr>
+			<tr ng-repeat="pmnt in payments" my-directive>
+				<td>{{pmnt.month + "/" + pmnt.year}}</td>
+				<td>{{pmnt.interest | currency}}</td>
+				<td>{{pmnt.principal | currency}}</td>
+				<td>{{pmnt.balance | currency}}</td>
+				<td>{{pmnt.totPrincipal | currency}}</td>
+				<td>{{pmnt.totInterest | currency}}</td>
+				<td>{{pmnt.totPaid | currency}}</td>
+				<td style="padding: 0px; width: 200px;"><div class="row-chart"><svg></svg></div></td>
+			</tr>
+		</table>
+		</div>
+	</body>
+</html>
+
