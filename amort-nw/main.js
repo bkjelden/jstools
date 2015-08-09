@@ -49,49 +49,18 @@ amortizationCalc.controller('CalculatorController', function($scope) {
 				totInterest = $scope.payments[i].totInterest;
 			}
 
-			/*nv.addGraph(function(){
-				var chart = nv.models.pieChart()
-					.x(function(d){ return d.label })
-					.y(function(d){ return d.value })
-					.color(["#5cb85c","#d9534f"])
-					.margin({"top": 0, "left": 0, "right": 0, "bottom": 0})
-					.showLegend(false)
-				;
-				var data = [
-							{ "label": "Principal", "value": $scope.payments[$scope.payments.length - 1].totPrincipal },
-							{ "label": "Interest", "value": $scope.payments[$scope.payments.length - 1].totInterest }
-						];
-				d3.select("#loan-breakdown svg")
-					.datum(data)
-					.call(chart);
-
-				return chart;
-			});*/
-
-			$scope.xoxo = function(){
-				return function(d) { return d.key };
-			};
-
-			$scope.yoyo = function(){
-				return function(d) { return d.y };
-			};
-
-			$scope.xoxoxo = function(){
-				return function(d, i) { return i; };
-			};
-
-			$scope.yoyoyo = function(){
-				return function(d) { return d[0]; };
-			};
-
-			$scope.colorsFn = function(){
-				return function(d,i){ return ( ["#5cb85c","#d9534f"] )[i]; };
-			};
-
+			//setup pieChart
+			$scope.pieX = function(d) { return d.key };
+			$scope.pieY = function(d) { return d.y };
+			$scope.pieColors = function(d,i){ return ( ["#5cb85c","#d9534f"] )[i]; };
 			$scope.pieChartData = [
 							{ "key": "Principal", "y": $scope.payments[$scope.payments.length - 1].totPrincipal },
 							{ "key": "Interest", "y": $scope.payments[$scope.payments.length - 1].totInterest }
 						];
+
+			//setup linePlusBarChart
+			$scope.linePlusBarX = function(d, i) { return i; };
+			$scope.linePlusBarY = function(d) { return d[0]; };
 			$scope.linePlusBarChartData = [
 							{ 	
 								"key": "Principal", "bar": true, "color": "#5cb85c", 
@@ -102,30 +71,6 @@ amortizationCalc.controller('CalculatorController', function($scope) {
 								"values": $scope.payments.map(function(pmnt){ return [pmnt.interest]; })
 							}
 						];
-			/*nv.addGraph(function(){
-				var chart = nv.models.linePlusBarChart()
-					.x(function(d,i){ return i })
-					.y(function(d,i){ return d[0] })
-					.margin({"top": 0, "left": 0, "right": 0, "bottom": 0})
-					.showLegend(false)
-					.focusEnable(false)
-				;
-				var data = [
-							{ 	
-								"key": "Principal", "bar": true, "color": "#5cb85c", 
-								"values": $scope.payments.map(function(pmnt){ return [pmnt.principal]; })
-							},
-							{ 	
-								"key": "Interest", "color": "#d9534f", 
-								"values": $scope.payments.map(function(pmnt){ return [pmnt.interest]; })
-							}
-						];
-				d3.select("#payment-graph svg")
-					.datum(data)
-					.call(chart);
-
-				return chart;
-			});*/
 		}
 	};
 	$scope.updateVals();

@@ -86,8 +86,8 @@
 					<nvd3-line-plus-bar-chart
 						data="linePlusBarChartData"
 						id="payment-graph"
-						x="xoxoxo()"
-					    y="yoyoyo()"
+						x="linePlusBarX"
+					    y="linePlusBarY"
 					    focusEnable="false"
 					    showLegend="false"
 						margin="{left:0,top:0,bottom:0,right:0}">
@@ -102,10 +102,11 @@
 				    	data="pieChartData"
 				        id="loan-breakdown"
 				        margin="{left:0,top:0,bottom:0,right:0}"
-				        x="xoxo()"
-				        y="yoyo()"
-				        color="colorsFn()"
-				        showLabels="false">
+				        x="pieX"
+				        y="pieY"
+				        color="pieColors"
+				        showLabels="false"
+				        showLegend="false">
     					<svg></svg>
 					</nvd3-pie-chart>
 				</div>
